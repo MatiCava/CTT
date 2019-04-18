@@ -25,7 +25,30 @@ public class PlayerController : MonoBehaviour {
         float turnAxis = Input.GetAxis(turnInputAxis);
 
         ApplyInput(moveAxis, turnAxis);
+
+        Attack();
 	}
+
+    //TODO falta manejo de animacion en ataque
+    private void Attack()
+    {
+        RaycastHit hit;
+        Ray orgDirRay = new Ray(transform.position, Vector3.forward);
+        float maxD = 1;
+
+        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * maxD);
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, maxD))
+            {
+                if(hit.collider.tag == "enemgio" || hit.collider.tag == "comida")
+                {
+                    //manejar danho
+                }
+            }
+        }
+    }
 
     private void ApplyInput(float moveInput, float turnInput)
     {
