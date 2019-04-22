@@ -33,18 +33,21 @@ public class PlayerController : MonoBehaviour {
     private void Attack()
     {
         RaycastHit hit;
-        Ray orgDirRay = new Ray(transform.position, Vector3.forward);
-        float maxD = 1;
+        Vector3 raycastPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        Ray orgDirRay = new Ray(raycastPos, Vector3.forward);
+        float maxD = 1.2f;
 
         //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * maxD);
 
         if (Input.GetKeyDown(KeyCode.F))
         {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * maxD);
+
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, maxD))
             {
-                if(hit.collider.tag == "enemgio" || hit.collider.tag == "comida")
+                if(hit.collider.tag == "enemigo" || hit.collider.tag == "comida")
                 {
-                    //manejar danho
+                    Debug.Log("choco " + hit.collider.tag);
                 }
             }
         }

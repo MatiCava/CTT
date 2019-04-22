@@ -24,15 +24,16 @@ public class EnemyController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //TODO acomodar direccion del modelo hacia el objetivo 
         GameObject target = GameObject.FindGameObjectWithTag("pj");
         float distance = Vector3.Distance(transform.position, target.transform.position);
         float step = speed * Time.deltaTime;
-
-        if (distance < 20)
+        Debug.Log(distance);
+        if (distance < 5 && distance > 0.9)
         {
             anim.SetFloat("Speed", step);
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-            //TODO cuando este cerca probar que no se superponga y ahi ataque
+            //TODO cuando frena que ataque
             Attack();
         }
     }
@@ -41,8 +42,9 @@ public class EnemyController : MonoBehaviour {
     private void Attack()
     {
         RaycastHit hit;
-        Ray orgDirRay = new Ray(transform.position, Vector3.forward);
-        float maxD = 1;
+        Vector3 raycastPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        Ray orgDirRay = new Ray(raycastPos, Vector3.forward);
+        float maxD = 1.2f;
 
         //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * maxD);
 
@@ -52,7 +54,7 @@ public class EnemyController : MonoBehaviour {
             {
                 if (hit.collider.tag == "pj" || hit.collider.tag == "comida")
                 {
-                    //manejar danho
+                    Debug.Log("choco" + hit.collider.tag);
                 }
             }
         }
